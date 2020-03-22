@@ -1,4 +1,11 @@
 # Take budge data and return analysis in dictionary item
+import sys
+
+# from a lot of pain to eventually read on a hack method.....
+sys.path.insert(1, '../Common')
+import common
+
+# Analyzes the budget data
 def AnalyzeData(data):
     total_months = len(data)
 
@@ -23,7 +30,7 @@ def AnalyzeData(data):
         # set the comparison for next loop
         previous_P_and_L = p_and_l
 
-    all_changes = SplitDictionaryKeyToList(data, 'change_from_previous_month')
+    all_changes = common.SplitDictionaryKeyToList(data, 'change_from_previous_month')
     total_changes = sum(all_changes)
     # remember that the first month did not have changes
     average_change = total_changes / (total_months - 1)
@@ -35,9 +42,3 @@ def AnalyzeData(data):
         'greatest_increase': greatest_increase
     }
 
-# function that will return a list of values from a dictionary list.
-def SplitDictionaryKeyToList(data, key):
-    dataitems = []
-    for item in data:
-        dataitems.append(item[key])
-    return dataitems

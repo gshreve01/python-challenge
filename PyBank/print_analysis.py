@@ -1,4 +1,11 @@
+# prints out the analysis to screen and to a file
+
 import os
+import sys
+
+# from a lot of pain to eventually read on a hack method.....
+sys.path.insert(1, '../Common')
+import common
 
 # taken from stack overflow - https://stackoverflow.com/questions/21208376/converting-float-to-dollars-and-cents
 def Format_Currency(amount):
@@ -20,23 +27,17 @@ def GetOutputFileName():
                 raise
     return filename
 
-# send to the output file and the screen
-def SendOutput(output, message):
-    print(message)
-    message += '\n'
-    output.write(message)
-    
 # Define method to print out analysis
 def Print_Analysis(analysis):
     with open(GetOutputFileName(), mode='w', encoding='utf-8') as output:
-        SendOutput(output, "Financial Analysis")
-        SendOutput(output, "----------------------------")
-        SendOutput(output, f"Total Months: {analysis['total_months']}")
-        SendOutput(output, f"Total: {Format_Currency(analysis['total_profile_loss'])}")
-        SendOutput(output, f"Average Change: {Format_Currency(analysis['average_profit_loss_change'])}")
-        SendOutput(output, f"Greatest Increase in Profits: {analysis['greatest_increase']['month']} - " + \
+        common.SendOutput(output, "Financial Analysis")
+        common.SendOutput(output, "----------------------------")
+        common.SendOutput(output, f"Total Months: {analysis['total_months']}")
+        common.SendOutput(output, f"Total: {Format_Currency(analysis['total_profile_loss'])}")
+        common.SendOutput(output, f"Average Change: {Format_Currency(analysis['average_profit_loss_change'])}")
+        common.SendOutput(output, f"Greatest Increase in Profits: {analysis['greatest_increase']['month']} - " + \
                 f"{analysis['greatest_increase']['year']}" + \
                 f"  ({Format_Currency(analysis['greatest_increase']['change_from_previous_month'])})")
-        SendOutput(output, f"Greatest Decrease in Profits: {analysis['greatest_decrease']['month']} - " + \
+        common.SendOutput(output, f"Greatest Decrease in Profits: {analysis['greatest_decrease']['month']} - " + \
                 f"{analysis['greatest_decrease']['year']}" + \
                 f"  ({Format_Currency(analysis['greatest_decrease']['change_from_previous_month'])})")
